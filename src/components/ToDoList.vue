@@ -16,18 +16,21 @@
             </el-row>
           </div>
           <div class="content">
-            <el-checkbox-group v-model="checkList">
-              <el-row v-for="(item,index) in itemList" :key="index">
-                <el-col :span="1">
-                  <span>{{(index+1)+"."}}</span>
-                </el-col>
-                <el-col :span="23">
-                  <el-checkbox :label="item.text">
-                    <!-- <span>{{item.text}}</span> -->
-                  </el-checkbox>
-                </el-col>
-              </el-row>
-            </el-checkbox-group>
+            <el-row v-for="(item,index) in itemShow" :key="item.text">
+              <el-col :span="1">
+                <span :class="{'isCheck':item.isComplete}">{{(index+1)+"."}}</span>
+              </el-col>
+              <el-col :span="23">
+                <el-checkbox :label="item.text" v-model="item.isComplete"></el-checkbox>
+              </el-col>
+            </el-row>
+          </div>
+          <div class="foot">
+            <el-row type="flex" justify="center">
+              <el-button @click="showChange('ALL')">ALL</el-button>
+              <el-button @click="showChange('Active')">Active</el-button>
+              <el-button @click="showChange('Complete')">Complete</el-button>
+            </el-row>
           </div>
         </div>
       </div>
@@ -40,21 +43,27 @@ export default {
   data() {
     return {
       newItem: "",
-      itemList: [
+      showType: 'ALL',
+      itemShow: [
         {
-          text: "第一项"
+          text: "123",
+          isComplete: false
         },
         {
-          text: "第二项"
+          text: "456",
+          isComplete: true
         },
         {
-          text: "第三项"
+          text: "789",
+          isComplete: false
         },
         {
-          text: "第四项"
+          text: "101",
+          isComplete: true
         }
       ],
-      checkList: ['第一项']
+      itemStorage: [],
+      checkList: ["456"]
     };
   },
 
@@ -70,8 +79,25 @@ export default {
       this.itemList.push({ text: this.newItem });
       this.newItem = "";
     },
-    dd() {
-      alert("dsa");
+    check(val) {
+      return this.itemList.indexOf(val) > -1;
+    },
+    showChange(type) {
+      if (this.showType === type) {
+        return;
+      }
+      if(type==='ALL'){
+          this.itemShow = this.itemStorage;
+          this.showType = 'ALL';
+          return;
+      }
+      if (this.showType === 'ALL') {
+        this.itemStorage = this.itemShow;
+      }
+      this.itemShow = this.itemStorage.filter(item => {
+          return item.isComplete == (type === "Complete" ? true : false);
+        });
+        this.showType = type;
     }
   }
 };

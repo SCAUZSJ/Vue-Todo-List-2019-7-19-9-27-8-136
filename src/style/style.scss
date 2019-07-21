@@ -7,11 +7,11 @@
   margin-top: 100px;
   background: #cccccc;
   border-radius: 8px;
-  padding: 15px 20px;
+  padding: 20px;
 
   .container {
     background: #ffffff;
-    padding: 20px;
+    padding: 20px 20px 5px;
     border-radius: 6px;
   }
   .head {
@@ -67,9 +67,37 @@
         left: 6px;
       }
     }
-    .el-checkbox__input.is-checked + .el-checkbox__label  {
+    .el-checkbox__input.is-checked +{
+      .el-checkbox__label, & span  {
+        color: #cccccc;
+        text-decoration: line-through;
+      }
+    }
+    .isCheck{
       color: #cccccc;
-      text-decoration: line-through;
+    }
+     
+  }
+  .foot{
+    margin-top:42px;
+    .el-button{
+      border:1.8px solid #FFF;
+      color:#fc999a;
+      font-size:18px;
+      padding:6px 16px;
+      line-height: 24px;
+      border-radius: 6px;
+      
+      &:hover{
+        background:#fc999a15;
+        border-color:#fc999a15;
+      }
+      &:focus{
+        background: #FFF;
+        border-color: #faf1f1;
+        
+      }
+
     }
   }
 }
