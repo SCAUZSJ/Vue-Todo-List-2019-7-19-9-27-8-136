@@ -60,9 +60,6 @@
         border: 1px solid #fc999a15;
         transform: scale(1.05);
         background: #fc999a15;
-        & i{
-          
-        }
       }
       .el-col {
         padding: 5px 6px;
@@ -76,14 +73,14 @@
           top: 0;
           left: 40px;
         }
-        & i{
+        & i {
           position: absolute;
-          top:0;
-          right:8px;
+          top: 0;
+          right: 8px;
           line-height: 40px;
-          font-size:18px;
-          color:#fc999a;
-          &:hover{
+          font-size: 18px;
+          color: #fc999a;
+          &:hover {
             cursor: pointer;
           }
         }

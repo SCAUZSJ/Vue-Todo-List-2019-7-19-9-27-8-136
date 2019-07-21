@@ -22,7 +22,6 @@
               :class="{'isCheck':item.isComplete}"
               @mouseenter.native="mouseEnterIndex = index"
               @mouseleave.native="mouseEnterIndex = -1"
-              
             >
               <el-col :span="1">
                 <span class="text-index">{{(index+1)+"."}}</span>
@@ -36,7 +35,11 @@
                   v-if="item.editing == true"
                   @keyup.enter.native="submit(index)"
                 ></el-input>
-                <i class="el-icon-delete icon" v-show="mouseEnterIndex == index" @click="remove(index)"></i>
+                <i
+                  class="el-icon-delete icon"
+                  v-show="mouseEnterIndex == index&&item.editing !=true"
+                  @click="remove(index)"
+                ></i>
               </el-col>
             </el-row>
           </div>
@@ -62,7 +65,7 @@ export default {
       itemShow: [],
       itemStorage: [],
       lastEditIndex: -1,
-      mouseEnterIndex:-1
+      mouseEnterIndex: -1
     };
   },
 
@@ -118,12 +121,13 @@ export default {
       console.log(this.itemShow);
       this.itemShow[index].editing = false;
     },
-    remove(index){
-        this.itemShow.splice(index,1);
+    remove(index) {
+      this.itemShow.splice(index, 1);
     }
   }
 };
 </script>
 <style lang='scss' >
 @import "../style/style.scss";
+
 </style>
