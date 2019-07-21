@@ -20,6 +20,9 @@
               v-for="(item,index) in itemShow"
               :key="item.id"
               :class="{'isCheck':item.isComplete}"
+              @mouseenter.native="mouseEnterIndex = index"
+              @mouseleave.native="mouseEnterIndex = -1"
+              
             >
               <el-col :span="1">
                 <span class="text-index">{{(index+1)+"."}}</span>
@@ -33,6 +36,7 @@
                   v-if="item.editing == true"
                   @keyup.enter.native="submit(index)"
                 ></el-input>
+                <i class="el-icon-delete icon" v-show="mouseEnterIndex == index" @click="remove(index)"></i>
               </el-col>
             </el-row>
           </div>
@@ -57,7 +61,8 @@ export default {
       showType: "ALL",
       itemShow: [],
       itemStorage: [],
-      lastEditIndex: -1
+      lastEditIndex: -1,
+      mouseEnterIndex:-1
     };
   },
 
@@ -85,6 +90,7 @@ export default {
       if (type === "ALL") {
         this.itemShow = this.itemStorage;
         this.showType = "ALL";
+        this.clearEditStatus();
         return;
       }
       if (this.showType === "ALL") {
@@ -93,7 +99,13 @@ export default {
       this.itemShow = this.itemStorage.filter(item => {
         return item.isComplete == (type === "Complete" ? true : false);
       });
+      this.clearEditStatus();
       this.showType = type;
+    },
+    clearEditStatus() {
+      this.itemShow.forEach(item => {
+        item.editing = false;
+      });
     },
     edit(index) {
       if (this.lastEditIndex != -1) {
@@ -105,6 +117,9 @@ export default {
     submit(index) {
       console.log(this.itemShow);
       this.itemShow[index].editing = false;
+    },
+    remove(index){
+        this.itemShow.splice(index,1);
     }
   }
 };
