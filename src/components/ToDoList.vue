@@ -16,12 +16,23 @@
             </el-row>
           </div>
           <div class="content">
-            <el-row v-for="(item,index) in itemShow" :key="item.text">
+            <el-row
+              v-for="(item,index) in itemShow"
+              :key="item.id"
+              :class="{'isCheck':item.isComplete}"
+            >
               <el-col :span="1">
-                <span :class="{'isCheck':item.isComplete}">{{(index+1)+"."}}</span>
+                <span class="text-index">{{(index+1)+"."}}</span>
               </el-col>
               <el-col :span="23">
-                <el-checkbox :label="item.text" v-model="item.isComplete"></el-checkbox>
+                <el-checkbox v-model="item.isComplete" @dblclick.native="edit(index)">
+                  <span class="text-content" v-if="item.editing != true">{{item.text}}</span>
+                </el-checkbox>
+                <el-input
+                  v-model="item.text"
+                  v-if="item.editing == true"
+                  @keyup.enter.native="submit(index)"
+                ></el-input>
               </el-col>
             </el-row>
           </div>
@@ -43,27 +54,10 @@ export default {
   data() {
     return {
       newItem: "",
-      showType: 'ALL',
-      itemShow: [
-        {
-          text: "123",
-          isComplete: false
-        },
-        {
-          text: "456",
-          isComplete: true
-        },
-        {
-          text: "789",
-          isComplete: false
-        },
-        {
-          text: "101",
-          isComplete: true
-        }
-      ],
+      showType: "ALL",
+      itemShow: [],
       itemStorage: [],
-      checkList: ["456"]
+      lastEditIndex: -1
     };
   },
 
@@ -76,28 +70,41 @@ export default {
       if (this.newItem == undefined || this.newItem == "") {
         return;
       }
-      this.itemList.push({ text: this.newItem });
+      this.itemShow.push({
+        id: Math.random() + "",
+        text: this.newItem,
+        isComplete: false,
+        editing: false
+      });
       this.newItem = "";
-    },
-    check(val) {
-      return this.itemList.indexOf(val) > -1;
     },
     showChange(type) {
       if (this.showType === type) {
         return;
       }
-      if(type==='ALL'){
-          this.itemShow = this.itemStorage;
-          this.showType = 'ALL';
-          return;
+      if (type === "ALL") {
+        this.itemShow = this.itemStorage;
+        this.showType = "ALL";
+        return;
       }
-      if (this.showType === 'ALL') {
+      if (this.showType === "ALL") {
         this.itemStorage = this.itemShow;
       }
       this.itemShow = this.itemStorage.filter(item => {
-          return item.isComplete == (type === "Complete" ? true : false);
-        });
-        this.showType = type;
+        return item.isComplete == (type === "Complete" ? true : false);
+      });
+      this.showType = type;
+    },
+    edit(index) {
+      if (this.lastEditIndex != -1) {
+        this.itemShow[this.lastEditIndex].editing = false;
+      }
+      this.itemShow[index].editing = true;
+      this.lastEditIndex = index;
+    },
+    submit(index) {
+      console.log(this.itemShow);
+      this.itemShow[index].editing = false;
     }
   }
 };
