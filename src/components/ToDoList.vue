@@ -8,15 +8,15 @@
             <p>Simple Todo List with adding and filter by diff status.</p>
             <el-row :gutter="10">
               <el-col :span="18">
-                <el-input v-model="itemContent"></el-input>
+                <el-input v-model="newItem"></el-input>
               </el-col>
               <el-col :span="4">
-                <el-button>Add</el-button>
+                <el-button @click="addItem">Add</el-button>
               </el-col>
             </el-row>
           </div>
           <div class="content">
-            <el-row v-for="(item,index) in list" :key="index">
+            <el-row v-for="(item,index) in itemList" :key="index">
               <el-col :span="1">
                 <span>{{(index+1)+"."}}</span>
               </el-col>
@@ -37,8 +37,8 @@
 export default {
   data() {
     return {
-      itemContent: "",
-      list: [
+      newItem: "",
+      itemList: [
         {
           text: "第一项"
         },
@@ -60,15 +60,17 @@ export default {
 
   computed: {},
 
-  mounted: {},
-
   methods: {
-    edit(item) {
-      console.log("ediiii");
+    addItem() {
+      if (this.newItem == undefined || this.newItem == "") {
+        return;
+      }
+      this.itemList.push({ text: this.newItem });
+      this.newItem = "";
     }
   }
 };
 </script>
 <style lang='scss' >
-@import '../style/style.scss';
+@import "../style/style.scss";
 </style>
