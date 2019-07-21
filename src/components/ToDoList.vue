@@ -122,6 +122,14 @@ export default {
       this.itemShow[index].editing = false;
     },
     remove(index) {
+        if(this.showType !== 'ALL'){
+            let id = this.itemShow[index].id;
+            this.itemStorage.forEach((item,index) =>{
+                if(item.id ===id){
+                    this.itemStorage.splice(index,1);
+                }
+            });
+        }
       this.itemShow.splice(index, 1);
     }
   }
