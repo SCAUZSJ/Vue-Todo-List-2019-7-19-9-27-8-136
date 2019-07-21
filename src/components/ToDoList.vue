@@ -16,16 +16,18 @@
             </el-row>
           </div>
           <div class="content">
-            <el-row v-for="(item,index) in itemList" :key="index">
-              <el-col :span="1">
-                <span>{{(index+1)+"."}}</span>
-              </el-col>
-              <el-col :span="23">
-                <el-checkbox>
-                  <span>{{item.text}}</span>
-                </el-checkbox>
-              </el-col>
-            </el-row>
+            <el-checkbox-group v-model="checkList">
+              <el-row v-for="(item,index) in itemList" :key="index">
+                <el-col :span="1">
+                  <span>{{(index+1)+"."}}</span>
+                </el-col>
+                <el-col :span="23">
+                  <el-checkbox :label="item.text">
+                    <!-- <span>{{item.text}}</span> -->
+                  </el-checkbox>
+                </el-col>
+              </el-row>
+            </el-checkbox-group>
           </div>
         </div>
       </div>
@@ -52,7 +54,7 @@ export default {
           text: "第四项"
         }
       ],
-      checkList: ["v-for循环"]
+      checkList: ['第一项']
     };
   },
 
@@ -67,6 +69,9 @@ export default {
       }
       this.itemList.push({ text: this.newItem });
       this.newItem = "";
+    },
+    dd() {
+      alert("dsa");
     }
   }
 };

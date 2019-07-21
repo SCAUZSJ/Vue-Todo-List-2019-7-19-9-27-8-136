@@ -67,7 +67,7 @@
         left: 6px;
       }
     }
-    .el-checkbox__input.is-checked + .el-checkbox__label span {
+    .el-checkbox__input.is-checked + .el-checkbox__label  {
       color: #cccccc;
       text-decoration: line-through;
     }
