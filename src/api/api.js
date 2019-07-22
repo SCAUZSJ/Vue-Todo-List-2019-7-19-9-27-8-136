@@ -30,7 +30,7 @@ export default {
         });
         return res;
     },
-    async delete(id) {
+    async deleteTodo(id) {
         const res = await axios({
             url: '/api/todos/'+id,
             method: 'delete',   

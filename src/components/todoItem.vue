@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-row
-      :class="{'isCheck':item.isComplete}"
+      :class="{'isCheck':item.complete}"
       @mouseenter.native="mouseEnter = true"
       @mouseleave.native="mouseEnter = false"
     >
@@ -9,11 +9,11 @@
         <span class="text-index">{{(index+1)+"."}}</span>
       </el-col>
       <el-col :span="23">
-        <el-checkbox v-model="item.isComplete" @dblclick.native="changeEditIndex()" v-if="editIndex != index">
+        <el-checkbox v-model="item.complete" @dblclick.native="changeEditIndex()" v-if="editIndex != index" @change="check">
           <span class="text-content" >{{item.text}}</span>
         </el-checkbox>
         <el-input
-          v-model="item.text"
+          v-model="textInput"
           v-if="editIndex == index"
           @keyup.enter.native="editSubmit()"
         ></el-input>
@@ -32,6 +32,7 @@ export default {
   data() {
     return {
       mouseEnter: false,
+      textInput:''
     };
   },
 
@@ -40,7 +41,8 @@ export default {
   computed: {
     editIndex(){
       return this.$store.getters.getEditIndex;
-    }
+    },
+    
   },
 
   created() {},
@@ -50,10 +52,15 @@ export default {
       this.$store.dispatch('deleteTodo',{index:this.index,id:this.item.id});
     },
     changeEditIndex(){
+      this.textInput = this.item.text;
       this.$store.commit('changeEditIndex',this.index);
     },
     editSubmit(){
-      this.$store.commit('changeEditIndex',-1);
+      this.item.text = this.textInput;
+      this.$store.dispatch('updateTodoTest',this.item);
+    },
+    check(){
+      this.$store.dispatch('updateTodoStatus',this.item);
     }
   },
 

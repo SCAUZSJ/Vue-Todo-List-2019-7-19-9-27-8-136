@@ -34,7 +34,7 @@ export default {
       if (this.newItem == undefined || this.newItem == "") {
         return;
       }
-      this.$store.dispatch('addTodo',newItem);
+      this.$store.dispatch('addTodo',this.newItem);
       this.newItem = "";
     },
   },

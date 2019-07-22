@@ -36,7 +36,7 @@ const store = new Vuex.Store({
                 state.itemStorage = state.itemShow;
             }
             state.itemShow = state.itemStorage.filter(item => {
-                return item.isComplete == (type === "Complete" ? true : false);
+                return item.complete == (type === "Complete" ? true : false);
             });
             state.showType = type;
         },
@@ -66,11 +66,13 @@ const store = new Vuex.Store({
             const res = await API.getAllTodo();
             if(res.status == 200){
                  context.commit('setItemList',res.data);
+                 console.log(res.data)
             }
         },
         async addTodo(context,todo){
-            const res = await API.addTodo(todo);
+            const res = await API.addTodo({text:todo});
             if(res.status == 201){
+                console.log(res.data.data)
                 context.commit('addItem',res.data);
             }
         },
@@ -80,12 +82,15 @@ const store = new Vuex.Store({
                 context.commit('remove',info.index);
             }
         },
-        async updateTodo(context,todo){
+        async updateTodoTest(context,todo){
             const res = await API.editTodo(todo);
             if(res.status == 200){
-                
+                context.commit('changeEditIndex',-1);
             }
         },
+        async updateTodoStatus(context,todo){
+            const res = await API.editTodo(todo);
+        }
 
     }
 })
