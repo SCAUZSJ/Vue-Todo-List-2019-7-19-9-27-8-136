@@ -13,9 +13,11 @@
           <span class="text-content" >{{item.text}}</span>
         </el-checkbox>
         <el-input
+          :ref="refKey"
           v-model="textInput"
           v-if="editIndex == index"
           @keyup.enter.native="editSubmit()"
+          @blur="loseFocus"
         ></el-input>
         <i class="el-icon-delete icon"
           v-show="mouseEnter == true&&editIndex !=index"
@@ -42,7 +44,9 @@ export default {
     editIndex(){
       return this.$store.getters.getEditIndex;
     },
-    
+    refKey(){
+      return this.index+Math.random();
+    }
   },
 
   created() {},
@@ -53,6 +57,8 @@ export default {
     },
     changeEditIndex(){
       this.textInput = this.item.text;
+      let ref = this.refKey;
+      // this.$refs.ref.el.querySelector('input').focus();
       this.$store.commit('changeEditIndex',this.index);
     },
     editSubmit(){
@@ -61,6 +67,9 @@ export default {
     },
     check(){
       this.$store.dispatch('updateTodoStatus',this.item);
+    },
+    loseFocus(){
+      this.$store.context.commit('changeEditIndex',-1);
     }
   },
 
