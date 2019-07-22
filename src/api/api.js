@@ -16,7 +16,7 @@ export default {
         return res;
     },
     async getAllTodo() {
-        const res = await axios.get('/api/todos');
+        const res = axios.get('/api/todos');
         return res;
     },
     async editTodo(data) {

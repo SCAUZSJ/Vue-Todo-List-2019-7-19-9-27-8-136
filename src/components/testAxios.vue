@@ -21,8 +21,8 @@ export default {
 
   methods: {
       async test(){
-          const res = await this.API.getParkingLot('8a80cb816c1924aa016c192a28560000');
-          console.log(res)
+        //   const res = await this.API.getParkingLot('8a80cb816c1924aa016c192a28560000');
+        //   console.log(res)
       }
   },
 
