@@ -3,6 +3,7 @@
     <el-row type="flex" justify="center">
       <div class="todolist-pane">
         <div class="container">
+          <test-axios></test-axios>
           <todo-head></todo-head>
           <todo-content></todo-content>
           <todo-footer></todo-footer>
@@ -27,7 +28,7 @@ export default {
     todoItem,
     todoHead,
     todoContent,
-    todoFooter
+    todoFooter,
   },
 
   computed: {},
