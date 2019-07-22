@@ -16,7 +16,11 @@
             </el-row>
           </div>
           <div class="content">
-            <el-row
+            <div  v-for="(item,index) in itemShow" :key="item.id">
+            <todo-item :item="item" :index="index" @remove="remove"></todo-item>
+            </div>
+
+            <!-- <el-row
               v-for="(item,index) in itemShow"
               :key="item.id"
               :class="{'isCheck':item.isComplete}"
@@ -41,7 +45,7 @@
                   @click="remove(index)"
                 ></i>
               </el-col>
-            </el-row>
+            </el-row> -->
           </div>
           <div class="foot">
             <el-row type="flex" justify="center">
@@ -57,6 +61,7 @@
 </template>
 
 <script>
+import todoItem from "./todoItem";
 export default {
   data() {
     return {
@@ -69,7 +74,9 @@ export default {
     };
   },
 
-  components: {},
+  components: {
+    todoItem
+  },
 
   computed: {},
 
@@ -122,14 +129,14 @@ export default {
       this.itemShow[index].editing = false;
     },
     remove(index) {
-        if(this.showType !== 'ALL'){
-            let id = this.itemShow[index].id;
-            this.itemStorage.forEach((item,index) =>{
-                if(item.id ===id){
-                    this.itemStorage.splice(index,1);
-                }
-            });
-        }
+      if (this.showType !== "ALL") {
+        let id = this.itemShow[index].id;
+        this.itemStorage.forEach((item, index) => {
+          if (item.id === id) {
+            this.itemStorage.splice(index, 1);
+          }
+        });
+      }
       this.itemShow.splice(index, 1);
     }
   }
@@ -137,5 +144,4 @@ export default {
 </script>
 <style lang='scss' >
 @import "../style/style.scss";
-
 </style>
