@@ -30,16 +30,11 @@ export default {
   created(){},
 
   methods: {
-     addItem() {
+      addItem() {
       if (this.newItem == undefined || this.newItem == "") {
         return;
       }
-      this.$store.commit('addItem',{
-        id: Math.random() + "",
-        text: this.newItem,
-        isComplete: false,
-        editing: false
-      });
+      this.$store.dispatch('addTodo',newItem);
       this.newItem = "";
     },
   },

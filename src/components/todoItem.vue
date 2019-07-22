@@ -47,7 +47,7 @@ export default {
 
   methods: {
     remove() {
-      this.$store.commit('remove',this.index);
+      this.$store.dispatch('deleteTodo',{index:this.index,id:this.item.id});
     },
     changeEditIndex(){
       this.$store.commit('changeEditIndex',this.index);

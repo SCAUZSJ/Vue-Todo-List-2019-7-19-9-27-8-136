@@ -68,12 +68,25 @@ const store = new Vuex.Store({
                  context.commit('setItemList',res.data);
             }
         },
-        async addTodo(context,data){
-            const res = await API.addTodo(data);
+        async addTodo(context,todo){
+            const res = await API.addTodo(todo);
             if(res.status == 201){
                 context.commit('addItem',res.data);
             }
-        }
+        },
+        async deleteTodo(context,info){
+            const res = await API.deleteTodo(info.id);
+            if(res.status == 200){
+                context.commit('remove',info.index);
+            }
+        },
+        async updateTodo(context,todo){
+            const res = await API.editTodo(todo);
+            if(res.status == 200){
+                
+            }
+        },
+
     }
 })
 export default store;
