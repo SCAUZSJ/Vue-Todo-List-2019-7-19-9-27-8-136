@@ -9,16 +9,16 @@
         <span class="text-index">{{(index+1)+"."}}</span>
       </el-col>
       <el-col :span="23">
-        <el-checkbox v-model="item.isComplete" @dblclick.native="editing = true" v-if="editing != true">
+        <el-checkbox v-model="item.isComplete" @dblclick.native="changeEditIndex()" v-if="editIndex != index">
           <span class="text-content" >{{item.text}}</span>
         </el-checkbox>
         <el-input
           v-model="item.text"
-          v-if="editing == true"
-          @keyup.enter.native="editing = false"
+          v-if="editIndex == index"
+          @keyup.enter.native="editSubmit()"
         ></el-input>
         <i class="el-icon-delete icon"
-          v-show="mouseEnter == true&&editing !=true"
+          v-show="mouseEnter == true&&editIndex !=index"
           @click="remove()"
         ></i>
       </el-col>
@@ -28,25 +28,32 @@
 
 <script>
 export default {
-  props:['item','index'],
+  props: ["item", "index"],
   data() {
     return {
-      mouseEnter:false,
-      editing:false,
+      mouseEnter: false,
     };
   },
 
   components: {},
 
-  computed: {},
-
+  computed: {
+    editIndex(){
+      return this.$store.getters.getEditIndex;
+    }
+  },
 
   created() {},
 
   methods: {
-
-    remove(){
-      this.$emit('remove',this.index)
+    remove() {
+      this.$store.commit('remove',this.index);
+    },
+    changeEditIndex(){
+      this.$store.commit('changeEditIndex',this.index);
+    },
+    editSubmit(){
+      this.$store.commit('changeEditIndex',-1);
     }
   },
 
