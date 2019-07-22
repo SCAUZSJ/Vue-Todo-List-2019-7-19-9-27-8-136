@@ -32,8 +32,13 @@ export default {
   },
 
   computed: {},
-
+  created(){
+    this.initData();
+  },
   methods: {
+    // async initData(){
+    //    this.$store.dispatch('');
+    // }
     
   }
 };
