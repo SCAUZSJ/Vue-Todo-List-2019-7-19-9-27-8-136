@@ -68,68 +68,61 @@ const store = new Vuex.Store({
     actions: {
         async init(context) {
             const res = await API.getAllTodo();
-            if (res.status !== 200) {
-                Message.error(res.error);
+            if (res.data.code!== 200) {
+                Message.error(res.data.errorMsg);
                 return;
             }
-            context.commit('setItemList', res.data);
+            context.commit('setItemList', res.data.data);
         },
         async addTodo(context, todo) {
-            try{
+            
                 const res = await API.addTodo({ text: todo });
-                if(res.status === 201){
-                    context.commit('addItem', res.data);
+                if(res.data.code === 201){
+                    context.commit('addItem', res.data.data);
                     Message({
                         message: '添加todo成功',
                         type: 'success'
                     });
+                }else{
+                    Message.error(res.data.errorMsg);
                 }
-            }catch(e){
-                Message.error(res.data);
-            }     
+           
         },
         async deleteTodo(context, info) {
 
-            try {
                 const res = await API.deleteTodo(info.id);
-                if (res.status === 200) {
+                if (res.data.code === 200) {
                     context.commit('remove', info.index);
                     Message({
                         message: '删除todo成功',
                         type: 'success'
                     });
+                }else{
+                    Message.error(res.data.errorMsg);
                 }
-            } catch (e) {
-                Message.error('服务异常');
-            }
-            
         },
         async updateTodoTest(context, todo) {
-            try{
                 const res = await API.editTodo(todo);
-                if(res.status === 200){
+                if(res.data.code === 200){
                     context.commit('changeEditIndex', -1);
                     Message({
                         message: '更新todo成功',
                         type: 'success'
                     });
+                }else{
+                    Message.error(res.data.errorMsg);
                 }
-            }catch(e){
-                Message.error(res.data);
-            }
         },
         async updateTodoStatus(context, todo) {
-            try{
                 const res = await API.editTodo(todo);
-                if(res.status === 200){
+                if(res.data.code === 200){
                     Message({
                         message: '更新todo成功',
                         type: 'success'
                     });
+                }else{
+                    Message.error(res.data.errorMsg);
                 }
-            }catch(e){
-                Message.error(res.data);
-            }
         }
 
     }

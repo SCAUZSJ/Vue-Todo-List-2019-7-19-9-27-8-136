@@ -1,6 +1,10 @@
 <template>
-  <div>
-      <p>{{name}}</p>
+  <div class="info">
+    <el-row type="flex" justify="center">
+        <el-avatar :size="250" :src="url" shape="square"></el-avatar>
+    </el-row>
+    <p>{{name}}</p>
+    <p>{{phone}}</p>
   </div>
 </template>
 
@@ -8,7 +12,10 @@
 export default {
   props: ["name"],
   data() {
-    return {};
+    return {
+      url:require("../../assets/touxiang.jpg"),
+      phone: "13628468759"
+    };
   },
 
   components: {},
@@ -25,12 +32,16 @@ export default {
 };
 </script>
 <style lang='scss' scoped>
-p{
-  font-size: 200px;
-  font-weight: bold;
-  margin: 0;
-  padding: 0;
-  text-align: center;
-  margin-top:100px;
+.info {
+    padding-top: 50px;
+  p {
+    font-size: 50px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 20px;
+  }
+  .el-avatar {
+    text-align: center;
+  }
 }
 </style>
