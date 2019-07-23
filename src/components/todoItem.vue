@@ -33,7 +33,9 @@ export default {
   data() {
     return {
       mouseEnter: false,
-      textInput:''
+      textInput:'',
+      time:'',
+      isDbCheck:false,
     };
   },
 
@@ -53,6 +55,7 @@ export default {
       this.$store.dispatch('deleteTodo',{index:this.index,id:this.item.id});
     },
     changeEditIndex(){
+      clearTimeout(this.time);
       this.textInput = this.item.text;
       this.$store.commit('changeEditIndex',this.index);
     },
@@ -60,12 +63,19 @@ export default {
       this.item.text = this.textInput;
       this.$store.dispatch('updateTodoTest',this.item);
     },
-    check(){
-      this.$store.dispatch('updateTodoStatus',this.item);
-    },
+    // check(){
+    //   this.$store.dispatch('updateTodoStatus',this.item);
+    // },
     loseFocus(){
       this.$store.commit('changeEditIndex',-1);
-    }
+    },
+    check() {
+      clearTimeout(this.time); 
+      this.time = setTimeout(() => {
+      this.$store.dispatch('updateTodoStatus',this.item);
+      }, 300); 
+    },
+　
   },
 
   filters: {}
