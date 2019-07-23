@@ -31,7 +31,7 @@ export default {
 
   methods: {
       addItem() {
-      if (this.newItem == undefined || this.newItem == "") {
+      if (this.newItem === undefined || this.newItem === "") {
         return;
       }
       this.$store.dispatch('addTodo',this.newItem);

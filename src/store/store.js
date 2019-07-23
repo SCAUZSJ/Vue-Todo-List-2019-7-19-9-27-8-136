@@ -36,7 +36,7 @@ const store = new Vuex.Store({
                 state.itemStorage = state.itemShow;
             }
             state.itemShow = state.itemStorage.filter(item => {
-                return item.complete == (type === "Complete" ? true : false);
+                return item.complete === (type === "Complete" ? true : false);
             });
             state.showType = type;
         },
@@ -52,39 +52,36 @@ const store = new Vuex.Store({
             state.itemShow.splice(index, 1);
         },
         addItem(state, newItem) {
-            if (newItem != undefined) {
+            if (newItem !== undefined) {
                 state.itemShow.push(newItem);
             }
         },
         changeEditIndex(state, newIndex) {
             state.editIndex = newIndex;
-            console.log(state.editIndex);
         }
     },
     actions: {        
         async init(context) {
             const res = await API.getAllTodo();
-            if(res.status == 200){
+            if(res.status === 200){
                  context.commit('setItemList',res.data);
-                 console.log(res.data)
             }
         },
         async addTodo(context,todo){
             const res = await API.addTodo({text:todo});
-            if(res.status == 201){
-                console.log(res.data.data)
+            if(res.status === 201){
                 context.commit('addItem',res.data);
             }
         },
         async deleteTodo(context,info){
             const res = await API.deleteTodo(info.id);
-            if(res.status == 200){
+            if(res.status === 200){
                 context.commit('remove',info.index);
             }
         },
         async updateTodoTest(context,todo){
             const res = await API.editTodo(todo);
-            if(res.status == 200){
+            if(res.status === 200){
                 context.commit('changeEditIndex',-1);
             }
         },

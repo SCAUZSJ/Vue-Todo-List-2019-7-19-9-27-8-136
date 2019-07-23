@@ -9,18 +9,18 @@
         <span class="text-index">{{(index+1)+"."}}</span>
       </el-col>
       <el-col :span="23">
-        <el-checkbox v-model="item.complete" @dblclick.native="changeEditIndex()" v-if="editIndex != index" @change="check">
+        <el-checkbox v-model="item.complete" @dblclick.native="changeEditIndex()" v-if="editIndex !== index" @change="check">
           <span class="text-content" >{{item.text}}</span>
         </el-checkbox>
         <el-input
           :ref="refKey"
           v-model="textInput"
-          v-if="editIndex == index"
+          v-if="editIndex === index"
           @keyup.enter.native="editSubmit()"
           @blur="loseFocus"
         ></el-input>
         <i class="el-icon-delete icon"
-          v-show="mouseEnter == true&&editIndex !=index"
+          v-show="mouseEnter === true&&editIndex !=index"
           @click="remove()"
         ></i>
       </el-col>
