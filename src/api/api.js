@@ -4,8 +4,8 @@ import VueAxios from 'vue-axios'
 Vue.use(VueAxios, axios);
 
 export default {
-    async addTodo(data) {
-        const res = await axios({
+    addTodo(data) {
+        return axios({
             url: '/api/todos',
             method: 'post',
             data: JSON.stringify(data),
@@ -13,29 +13,25 @@ export default {
                 'Content-Type': 'application/json'
             }
         });
-        return res;
     },
-    async getAllTodo() {
-        const res = axios.get('/api/todos');
-        return res;
+    getAllTodo() {
+        return axios.get('/api/todos');
     },
-    async editTodo(data) {
-        const res = await axios({
-            url: '/api/todos/'+data.id,
+    editTodo(data) {
+        return axios({
+            url: '/api/todos/' + data.id,
             method: 'put',
             data: JSON.stringify(data),
             headers: {
                 'Content-Type': 'application/json'
             }
         });
-        return res;
     },
-    async deleteTodo(id) {
-        const res = await axios({
-            url: '/api/todos/'+id,
-            method: 'delete',   
+    deleteTodo(id) {
+        return axios({
+            url: '/api/todos/' + id,
+            method: 'delete',
         });
-        return res;
     },
 
 }

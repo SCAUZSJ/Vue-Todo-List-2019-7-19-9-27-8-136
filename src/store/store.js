@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 Vue.use(Vuex)
 import API from '../api/api'
+import {Message} from 'element-ui'
+
 const store = new Vuex.Store({
     state: {
         itemShow: [],
@@ -15,6 +17,9 @@ const store = new Vuex.Store({
         },
         getEditIndex(state) {
             return state.editIndex;
+        },
+        getShowType(state){
+            return state.showType;
         }
 
     },
@@ -60,33 +65,62 @@ const store = new Vuex.Store({
             state.editIndex = newIndex;
         }
     },
-    actions: {        
+    actions: {
         async init(context) {
             const res = await API.getAllTodo();
-            if(res.status === 200){
-                 context.commit('setItemList',res.data);
+            if(res.status !== 200){
+                Message.error(res.error);
+                return;
             }
+            context.commit('setItemList',res.data);  
         },
         async addTodo(context,todo){
             const res = await API.addTodo({text:todo});
-            if(res.status === 201){
-                context.commit('addItem',res.data);
+            if(res.status !== 201){
+                Message.error(res.data);
+                return;
             }
+            context.commit('addItem',res.data);            
+            Message({
+                message: '添加todo成功',
+                type: 'success'
+              });
         },
         async deleteTodo(context,info){
             const res = await API.deleteTodo(info.id);
-            if(res.status === 200){
-                context.commit('remove',info.index);
+            if(res.status !== 200){
+                Message.error(res.data);
+                return;
             }
+            context.commit('remove',info.index);            
+            Message({
+                message: '删除todo成功',
+                type: 'success'
+              });
         },
         async updateTodoTest(context,todo){
             const res = await API.editTodo(todo);
-            if(res.status === 200){
-                context.commit('changeEditIndex',-1);
+            if(res.status !== 200){
+                Message.error(res.data);
+                return;
             }
+            context.commit('changeEditIndex',-1);
+            Message({
+                message: '更新todo成功',
+                type: 'success'
+              });
+            
         },
         async updateTodoStatus(context,todo){
             const res = await API.editTodo(todo);
+            if(res.status !== 200){
+                Message.error(res.data);
+                return;
+            }
+            // Message({
+            //     message: '更新todo成功',
+            //     type: 'success'
+            //   });
         }
 
     }

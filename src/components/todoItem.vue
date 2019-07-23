@@ -9,11 +9,10 @@
         <span class="text-index">{{(index+1)+"."}}</span>
       </el-col>
       <el-col :span="23">
-        <el-checkbox v-model="item.complete" @dblclick.native="changeEditIndex()" v-if="editIndex !== index" @change="check">
+        <el-checkbox v-model="item.complete"  @dblclick.native="changeEditIndex()" v-if="editIndex !== index" @change="check">
           <span class="text-content" >{{item.text}}</span>
         </el-checkbox>
         <el-input
-          :ref="refKey"
           v-model="textInput"
           v-if="editIndex === index"
           @keyup.enter.native="editSubmit()"
@@ -44,9 +43,7 @@ export default {
     editIndex(){
       return this.$store.getters.getEditIndex;
     },
-    refKey(){
-      return this.index+Math.random();
-    }
+ 
   },
 
   created() {},
@@ -57,8 +54,6 @@ export default {
     },
     changeEditIndex(){
       this.textInput = this.item.text;
-      let ref = this.refKey;
-      // this.$refs.ref.el.querySelector('input').focus();
       this.$store.commit('changeEditIndex',this.index);
     },
     editSubmit(){
@@ -69,7 +64,7 @@ export default {
       this.$store.dispatch('updateTodoStatus',this.item);
     },
     loseFocus(){
-      this.$store.context.commit('changeEditIndex',-1);
+      this.$store.commit('changeEditIndex',-1);
     }
   },
 

@@ -142,10 +142,10 @@
         background: #fc999a15;
         border-color: #fc999a15;
       }
-      &:focus {
-        background: #fff;
-        border-color: #faf1f1;
-      }
+    }
+    .is-focus{
+      background: #fff;
+      border-color: #faf1f1;
     }
   }
 }

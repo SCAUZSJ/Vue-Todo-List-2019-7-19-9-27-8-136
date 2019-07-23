@@ -1,9 +1,9 @@
 <template>
  <div class="foot">
     <el-row type="flex" justify="center">
-        <el-button @click="showChange('ALL')">ALL</el-button>
-        <el-button @click="showChange('Active')">Active</el-button>
-        <el-button @click="showChange('Complete')">Complete</el-button>
+        <el-button @click="showChange('ALL')" :class="{'is-focus':showType=='ALL'}">ALL</el-button>
+        <el-button @click="showChange('Active')" :class="{'is-focus':showType=='Active'}">Active</el-button>
+        <el-button @click="showChange('Complete')" :class="{'is-focus':showType=='Complete'}">Complete</el-button>
     </el-row>
     </div>
 </template>
@@ -11,12 +11,17 @@
 <script>
 export default {
   data() {
-    return {};
+    return {
+    };
   },
 
   components: {},
 
-  computed: {},
+  computed: {
+    showType(){
+        return this.$store.getters.getShowType;
+    }
+  },
 
   mounted() {},
 
