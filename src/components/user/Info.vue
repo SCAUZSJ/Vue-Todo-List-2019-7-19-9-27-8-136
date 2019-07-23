@@ -31,17 +31,6 @@ export default {
   filters: {}
 };
 </script>
-<style lang='scss' scoped>
-.info {
-    padding-top: 50px;
-  p {
-    font-size: 50px;
-    font-weight: bold;
-    text-align: center;
-    margin-top: 20px;
-  }
-  .el-avatar {
-    text-align: center;
-  }
-}
+<style lang='scss'>
+@import "../../style/style.scss";
 </style>
