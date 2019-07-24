@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-row type="flex" justify="center">
+    <a-row type="flex" justify="center">
       <div class="todolist-pane">
         <div class="container">
           <todo-head></todo-head>
@@ -8,7 +8,7 @@
           <todo-footer></todo-footer>
         </div>
       </div>
-    </el-row>
+    </a-row>
   </div>
 </template>
 

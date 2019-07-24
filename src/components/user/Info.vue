@@ -1,8 +1,8 @@
 <template>
   <div class="info">
-    <el-row type="flex" justify="center">
-        <el-avatar :size="250" :src="url" shape="square"></el-avatar>
-    </el-row>
+    <a-row type="flex" justify="center">
+        <a-avatar :size="250" :src="url" shape="square"></a-avatar>
+    </a-row>
     <p>{{name}}</p>
     <p>{{phone}}</p>
   </div>
@@ -32,5 +32,5 @@ export default {
 };
 </script>
 <style lang='scss'>
-@import "../../style/style.scss";
+@import "../../style/info.scss";
 </style>

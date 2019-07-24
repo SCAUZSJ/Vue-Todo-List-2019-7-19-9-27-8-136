@@ -26,7 +26,8 @@
       font-size: 18px;
     }
 
-    .el-button {
+    .ant-btn  {
+      height:40px;
       width: 80px;
       background: #fc999a;
       color: #ffffff;
@@ -51,7 +52,7 @@
       //   color:#2c3e50;
       font-weight: bold;
     }
-    .el-row {
+    .ant-row {
       border: 1px solid transparent;
       margin: 4px 0;
       margin-right: 20px;
@@ -61,13 +62,13 @@
         transform: scale(1.05);
         background: #fc999a15;
       }
-      .el-col {
+      & div[class^="ant-col"] {
         padding: 5px 6px;
         line-height: 32px;
         border-radius: 4px;
         background: transparent;
         position: relative;
-        .el-input {
+        .ant-input {
           position: absolute;
           width: 90%;
           top: 0;
@@ -86,57 +87,39 @@
         }
       }
     }
-    // .el-row:nth-of-type(2n) {
 
-    //   .el-col:nth-of-type(2) {
-    //     background: #fff4f4;
-    //   }
-    // }
-    .el-checkbox__inner {
-      height: 18px;
-      width: 18px;
-      border-radius: 4px;
-      &::after {
-        height: 10px;
-        left: 6px;
-      }
+    .is-check span.text-index {
+      color: #cccccc;
+      text-decoration: line-through;
     }
-    .el-checkbox {
+    .ant-checkbox-wrapper {
       margin-right: 4px;
       padding: 0;
-      width: 100%;
-
-      .el-checkbox__input {
+      width: 80%;
+      .ant-checkbox-input {
         margin-left: 2px;
-      }
-      .el-checkbox__label {
-        width: 84%;
-        .el-input {
-          width: 100%;
-        }
       }
     }
 
-    .el-checkbox__input.is-checked + {
-      .el-checkbox__label span {
+    .ant-checkbox-wrapper-checked {
+      & span.text-content {
         width: 92%;
         color: #cccccc;
         text-decoration: line-through;
       }
     }
-    .isCheck span {
-      color: #cccccc;
-    }
+    
   }
   .foot {
     margin-top: 42px;
-    .el-button {
+    .ant-btn{
       border: 1.8px solid #fff;
       color: #fc999a;
       font-size: 18px;
       padding: 6px 16px;
       line-height: 24px;
       border-radius: 6px;
+      height:40px;
 
       &:hover {
         background: #fc999a15;
